@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentines! ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f9e3ff 0%, #e6c6ff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .background-flower {
+            position: absolute;
+            opacity: 0.6;
+            z-index: 0;
+        }
+        
+        .flower1 {
+            top: 10%;
+            left: 5%;
+            font-size: 60px;
+            color: #b57edc;
+            transform: rotate(-15deg);
+        }
+        
+        .flower2 {
+            top: 15%;
+            right: 5%;
+            font-size: 50px;
+            color: #c9a0dc;
+            transform: rotate(20deg);
+        }
+        
+        .flower3 {
+            bottom: 10%;
+            left: 8%;
+            font-size: 70px;
+            color: #d4b3ff;
+            transform: rotate(10deg);
+        }
+        
+        .flower4 {
+            bottom: 15%;
+            right: 10%;
+            font-size: 45px;
+            color: #a86ed4;
+            transform: rotate(-20deg);
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #8a2be2;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            color: #9b4dca;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+        
+        .gift-section {
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .gift-box {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }
+        
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+        
+        .box-bottom {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(45deg, #c56cf0, #8a2be2);
+            border-radius: 10px;
+            position: absolute;
+            bottom: 0;
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
+        }
+        
+        .box-top {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(45deg, #a45de0, #7b1fa2);
+            border-radius: 10px 10px 0 0;
+            position: absolute;
+            top: 0;
+            transition: transform 0.8s ease;
+            transform-origin: bottom;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+        }
+        
+        .box-top.open {
+            transform: rotateX(180deg);
+        }
+        
+        /* New ribbon design - cross ribbons */
+        .ribbon-horizontal {
+            position: absolute;
+            background-color: #ffccf9;
+            width: 100%;
+            height: 20px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ribbon-vertical {
+            position: absolute;
+            background-color: #ffccf9;
+            width: 20px;
+            height: 100%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Ribbon bow */
+        .ribbon-bow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            z-index: 3;
+        }
+        
+        .bow-loop {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background-color: #ffccf9;
+            border-radius: 50% 50% 0 0;
+            top: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bow-left {
+            left: 0;
+            transform: rotate(-30deg);
+        }
+        
+        .bow-right {
+            right: 0;
+            transform: rotate(30deg);
+        }
+        
+        .bow-center {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ffccf9;
+            border-radius: 50%;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+        
+        .bow-tails {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background-color: #ffccf9;
+            top: 60px;
+            left: 10px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .open-button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(to right, #9c27b0, #673ab7);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4);
+        }
+        
+        .open-button:hover {
+            background: linear-gradient(to right, #7b1fa2, #5e35b1);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(156, 39, 176, 0.5);
+        }
+        
+        .open-button:active {
+            transform: translateY(1px);
+        }
+        
+        .open-button i {
+            margin-right: 8px;
+        }
+        
+        .letter-container {
+            display: none;
+            margin: 40px auto;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter-container.show {
+            display: block;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .letter-flower {
+            position: absolute;
+            color: #e1bee7;
+            font-size: 80px;
+            z-index: 0;
+        }
+        
+        .flower-top-left {
+            top: -20px;
+            left: -10px;
+            transform: rotate(-45deg);
+        }
+        
+        .flower-bottom-right {
+            bottom: -20px;
+            right: -10px;
+            transform: rotate(45deg);
+        }
+        
+        .letter-content {
+            position: relative;
+            z-index: 1;
+            text-align: left;
+            line-height: 1.8;
+        }
+        
+        .letter-header {
+            color: #7b1fa2;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Brush Script MT', cursive;
+        }
+        
+        .letter-body {
+            color: #555;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        
+        .letter-signature {
+            text-align: right;
+            font-size: 1.4rem;
+            color: #9c27b0;
+            font-weight: bold;
+            margin-top: 30px;
+            font-style: italic;
+        }
+        
+        .hearts {
+            position: absolute;
+            color: #ff4081;
+            font-size: 20px;
+            animation: float 5s infinite ease-in-out;
+            opacity: 0;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #9b4dca;
+            font-size: 1rem;
+            font-style: italic;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gift-box {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .box-bottom {
+                height: 120px;
+            }
+            
+            .box-top {
+                height: 80px;
+            }
+            
+            .ribbon-bow {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .bow-loop {
+                width: 35px;
+                height: 45px;
+            }
+            
+            .bow-center {
+                width: 25px;
+                height: 25px;
+                top: 25px;
+            }
+            
+            .bow-tails {
+                width: 50px;
+                height: 35px;
+                top: 50px;
+                left: 10px;
+            }
+            
+            .letter-container {
+                padding: 30px 20px;
+                margin: 30px 15px;
+            }
+            
+            .letter-header {
+                font-size: 1.8rem;
+            }
+            
+            .letter-body {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .gift-box {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .box-bottom {
+                height: 110px;
+            }
+            
+            .box-top {
+                height: 70px;
+            }
+            
+            .ribbon-bow {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .bow-loop {
+                width: 30px;
+                height: 40px;
+            }
+            
+            .bow-center {
+                width: 20px;
+                height: 20px;
+                top: 20px;
+            }
+            
+            .bow-tails {
+                width: 40px;
+                height: 30px;
+                top: 40px;
+                left: 10px;
+            }
+            
+            .open-button {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background decorative flowers -->
+    <div class="background-flower flower1">❀</div>
+    <div class="background-flower flower2">✿</div>
+    <div class="background-flower flower3">❁</div>
+    <div class="background-flower flower4">✾</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Happy Valentines! ❤️</h1>
+            <p class="subtitle">Sana magustuhan mo 😅</p>
+        </div>
+        
+        <div class="gift-section">
+            <div class="gift-box" id="giftBox">
+                <div class="box-bottom"></div>
+                <div class="ribbon-horizontal"></div>
+                <div class="ribbon-vertical"></div>
+                <div class="ribbon-bow">
+                    <div class="bow-loop bow-left"></div>
+                    <div class="bow-loop bow-right"></div>
+                    <div class="bow-center"></div>
+                    <div class="bow-tails"></div>
+                </div>
+                <div class="box-top" id="boxTop"></div>
+            </div>
+            
+            <button class="open-button" id="openButton">
+                <i class="fas fa-gift"></i> Open Your Gift
+            </button>
+        </div>
+        
+        <div class="letter-container" id="letterContainer">
+            <div class="letter-flower flower-top-left">✿</div>
+            <div class="letter-flower flower-bottom-right">✿</div>
+            
+            <div class="letter-content">
+                <h2 class="letter-header">To Mamamia,</h2>
+                
+                <div class="letter-body">
+                    <p>Hello! In case you're wondering why I sent you this website, it's because I can't write a letter my handwriting is super ugly 😂</p>
+                    
+                    <p>Kidding aside (not really), Happy Valentine's, MAMAMIA! Stay pretty and gorgeous always, and I mean it.</p>
+                    
+                    <p>This is where I can express my true feelings, not through physical letters, because this is what I enjoy doing. I'm sorry if this doesn't look very effortful, but I promise next time I'll try my very best to make you a gift that will make you happy.</p>
+                    
+                    <p>Eto pa lang ang kaya ko for now. It's not much, pero sana ma appreciate mo tong low effort digital letter website na ginawa ko.
+                        And again, Happy Valentine's Day! Enjoy your day!
+                    </p>
+                </div>
+                
+                <p class="letter-signature">-Ronji<br></p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const openButton = document.getElementById('openButton');
+            const boxTop = document.getElementById('boxTop');
+            const giftBox = document.getElementById('giftBox');
+            const letterContainer = document.getElementById('letterContainer');
+            let isOpen = false;
+            
+            // Create floating hearts
+            function createHearts() {
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('hearts');
+                        heart.innerHTML = '❤';
+                        heart.style.left = Math.random() * 100 + 'vw';
+                        heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                        heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                        heart.style.animationDelay = Math.random() * 2 + 's';
+                        document.body.appendChild(heart);
+                        
+                        // Remove heart after animation completes
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 7000);
+                    }, i * 200);
+                }
+            }
+            
+            // Open gift box and show letter
+            openButton.addEventListener('click', function() {
+                if (!isOpen) {
+                    // Open the box
+                    boxTop.classList.add('open');
+                    
+                    // Show letter with delay
+                    setTimeout(() => {
+                        letterContainer.classList.add('show');
+                        openButton.innerHTML = '<i class="fas fa-heart"></i> Close Letter';
+                        
+                        // Create floating hearts
+                        createHearts();
+                        
+                        // Continue creating hearts every few seconds
+                        setInterval(createHearts, 5000);
+                    }, 800);
+                    
+                    isOpen = true;
+                } else {
+                    // Close the box and letter
+                    boxTop.classList.remove('open');
+                    letterContainer.classList.remove('show');
+                    openButton.innerHTML = '<i class="fas fa-gift"></i> Open Your Gift';
+                    isOpen = false;
+                }
+            });
+            
+            // Also open when clicking on the gift box itself
+            giftBox.addEventListener('click', function() {
+                openButton.click();
+            });
+            
+            // Create some initial floating hearts
+            setTimeout(createHearts, 1000);
+        });
+    </script>
+</body>
+</html>
