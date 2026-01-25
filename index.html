@@ -11,27 +11,33 @@
   <style>
     * { box-sizing: border-box; }
 
-body {
-margin: 0;
-font-family: 'Poppins', sans-serif;
-background: #fff1f3;
-min-height: 100vh;
-overflow-x: hidden;
-}
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fff1f3;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-.page {
-position: absolute;
-inset: 0;
-display: none;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: 20px;
-overflow-y: auto;
-}
+    .page {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
 
     .page.active { display: flex; }
+
+    /* 🔑 FIX FOR PAGE 4 */
+    #p4 {
+      justify-content: flex-start;
+      padding-top: 40px;
+    }
 
     h1 {
       color: #ff4d6d;
@@ -45,7 +51,6 @@ overflow-y: auto;
 
     p { color: #444; }
 
-    /* CIRCLE IMAGE */
     .circle {
       width: 180px;
       height: 180px;
@@ -60,13 +65,12 @@ overflow-y: auto;
 
     .circle img {
       width: 85%;
-      height: auto;
       border-radius: 50%;
       animation: floaty 2.5s ease-in-out infinite;
     }
 
     @keyframes floaty {
-      0%, 100% { transform: translateY(0); }
+      0%,100% { transform: translateY(0); }
       50% { transform: translateY(-6px); }
     }
 
@@ -101,22 +105,6 @@ overflow-y: auto;
       margin-top: 10px;
     }
 
-    .heart {
-      position: absolute;
-      color: #ffb3c1;
-      animation: float 7s linear infinite;
-      opacity: 0.8;
-    }
-
-    .watermark {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      font-size: 12px;
-      color: #aaa;
-    }
-
-    /* Letter card */
     .letter-wrapper {
       background: white;
       width: 90%;
@@ -130,7 +118,6 @@ overflow-y: auto;
     .letter-wrapper p {
       font-size: 14.5px;
       line-height: 1.7;
-      color: #444;
       text-align: left;
     }
 
@@ -139,14 +126,24 @@ overflow-y: auto;
       margin: 10px 0;
     }
 
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .heart {
+      position: absolute;
+      color: #ffb3c1;
+      animation: float 7s linear infinite;
+      opacity: 0.8;
     }
 
     @keyframes float {
       from { transform: translateY(110vh); }
       to { transform: translateY(-10vh); }
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 12px;
+      color: #aaa;
     }
   </style>
 </head>
@@ -155,11 +152,9 @@ overflow-y: auto;
   <!-- PAGE 1 -->
   <div class="page active" id="p1">
     <h1>Happy Valentine's Day! 💗</h1>
-
     <div class="circle">
-      <img src="bear-love.png" alt="Cute bear holding heart">
+      <img src="bear-love.png" alt="Cute bear">
     </div>
-
     <p>(o˘◡˘o)</p>
     <p>Click the next button!! (つ≧▽≦)つ 💕</p>
     <button onclick="go(2)">Next!! ^w^</button>
@@ -167,7 +162,7 @@ overflow-y: auto;
 
   <!-- PAGE 2 -->
   <div class="page" id="p2">
-    <img class="card-img" src="https://static.wixstatic.com/media/6963ba_14cdee3d8cca456197a91f6e34ab3d69~mv2.jpg/v1/fill/w_640,h_418,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/6963ba_14cdee3d8cca456197a91f6e34ab3d69~mv2.jpg" />
+    <img class="card-img" src="https://static.wixstatic.com/media/6963ba_14cdee3d8cca456197a91f6e34ab3d69~mv2.jpg" />
     <h2>I wrote a letter for you...</h2>
     <button onclick="go(3)">Next →</button>
   </div>
@@ -187,38 +182,32 @@ overflow-y: auto;
     <h1>💌 Happy Valentine's Day MAMAMIA!!</h1>
     <div class="hearts-row">💖 💖 💖</div>
 
-<div class="letter-wrapper">
-<p>
-Hello! In case you're wondering why I sent you this website, it's because I can't write a letter — my handwriting is super ugly 😂
-<br><br>
-Kidding aside (not really), Happy Valentine’s, <strong>MAMAMIA!</strong> Stay pretty and gorgeous always, and I mean it.
-Thank you for always being there for me and cheering me up whenever I needed someone to talk to,
-especially when I'm feeling down.
-<br><br>
-I also made this because this is where I can express my feelings — not through physical letters —
-because this is what I enjoy doing. I'm sorry if this doesn't look very effortful,
-but I promise next time I'll try my very best to make you a gift that will make you happy.
-<br><br>
-Eto pa lang ang kaya ko for now. It's not much, pero sana ma-appreciate mo tong low effort
-digital letter website na ginawa ko as a token of appreciation for you.
-<br><br>
-And again, <strong>Happy Valentine's Day!</strong> 💗
-I hope you enjoy your day!
-</p>
-</div>
+    <div class="letter-wrapper">
+      <p>
+        Hello! In case you're wondering why I sent you this website, it's because
+        I can't write a letter — my handwriting is super ugly 😂
+        <br><br>
+        Kidding aside (not really), Happy Valentine’s, <strong>MAMAMIA!</strong>
+        Stay pretty and gorgeous always, and I mean it.
+        Thank you for always being there for me and cheering me up whenever
+        I needed someone to talk to, especially when I'm feeling down.
+        <br><br>
+        I made this because this is where I can express my feelings —
+        not through physical letters — because this is what I enjoy doing.
+        I'm sorry if this doesn't look very effortful, but I promise next time
+        I'll try my very best to make you a gift that will make you happy.
+        <br><br>
+        Eto pa lang ang kaya ko for now. It's not much, pero sana ma-appreciate mo
+        tong low-effort digital letter website na ginawa ko as a token of appreciation.
+        <br><br>
+        And again, <strong>Happy Valentine's Day!</strong> 💗
+      </p>
+    </div>
 
     <button onclick="go(1)">Replay 💕</button>
   </div>
 
-  <div class="watermark">Made with 💖 ni Ronji </div>
-
-  <!-- Retry Popup -->
-  <div id="retry" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.3); align-items:center; justify-content:center;">
-    <div style="background:white; padding:30px; border-radius:20px; text-align:center; width:280px; animation:fade 0.4s ease;">
-      <p style="font-size:16px; margin-bottom:20px;">Awh... Let's try again, Please..? ＞︿＜</p>
-      <button onclick="retry()">Again..?</button>
-    </div>
-  </div>
+  <div class="watermark">Made with 💖 ni Ronji</div>
 
   <script>
     function go(n) {
@@ -230,11 +219,6 @@ I hope you enjoy your day!
       document.getElementById('retry').style.display = 'flex';
     }
 
-    function retry() {
-      document.getElementById('retry').style.display = 'none';
-    }
-
-    // floating hearts
     for (let i = 0; i < 22; i++) {
       const h = document.createElement('div');
       h.className = 'heart';
