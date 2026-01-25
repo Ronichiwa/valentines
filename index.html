@@ -19,19 +19,32 @@
       overflow-x: hidden;
     }
 
+    /* ✅ ONLY CHANGE: smooth transition (no blinking) */
     .page {
       position: absolute;
       inset: 0;
-      display: none;
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 20px;
       overflow-y: auto;
+
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.98);
+      transition:
+        opacity 0.6s ease,
+        transform 0.6s ease,
+        visibility 0.6s;
     }
 
-    .page.active { display: flex; }
+    .page.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
 
     #p4 {
       justify-content: flex-start;
@@ -145,7 +158,6 @@
       color: #aaa;
     }
 
-    /* RETRY PAGE */
     #retry {
       background: #fff1f3;
       z-index: 10;
@@ -244,5 +256,3 @@
 
 </body>
 </html>
-
-
