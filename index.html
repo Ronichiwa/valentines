@@ -33,7 +33,6 @@
 
     .page.active { display: flex; }
 
-    /* 🔑 FIX FOR PAGE 4 */
     #p4 {
       justify-content: flex-start;
       padding-top: 40px;
@@ -145,6 +144,12 @@
       font-size: 12px;
       color: #aaa;
     }
+
+    /* RETRY PAGE */
+    #retry {
+      background: #fff1f3;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
@@ -207,6 +212,12 @@
     <button onclick="go(1)">Replay 💕</button>
   </div>
 
+  <!-- RETRY PAGE -->
+  <div class="page" id="retry">
+    <h2>Awh... Let's try again, Please..? &gt; &lt;</h2>
+    <button onclick="go(3)">Again..?</button>
+  </div>
+
   <div class="watermark">Made with 💖 ni Ronji</div>
 
   <script>
@@ -216,7 +227,8 @@
     }
 
     function showRetry() {
-      document.getElementById('retry').style.display = 'flex';
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('retry').classList.add('active');
     }
 
     for (let i = 0; i < 22; i++) {
@@ -232,4 +244,3 @@
 
 </body>
 </html>
-
