@@ -178,15 +178,6 @@
 
 <body>
 
-<!-- 🔇 HIDDEN BACKGROUND MUSIC -->
-<iframe
-  id="bgMusic"
-  src="https://www.youtube-nocookie.com/embed/ok2pqepWTLU?enablejsapi=1"
-  frameborder="0"
-  allow="autoplay; encrypted-media"
-  style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;">
-</iframe>
-
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
   <h1>Happy Valentine's Day! 💗</h1>
@@ -222,11 +213,12 @@
   <h1>🎵 A Song Just For You</h1>
 
   <iframe
+    id="musicPlayer"
     width="280"
     height="158"
-    src="https://www.youtube-nocookie.com/embed/ok2pqepWTLU"
+    src="https://www.youtube-nocookie.com/embed/ok2pqepWTLU?enablejsapi=1"
     frameborder="0"
-    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allow="autoplay; encrypted-media; picture-in-picture"
     allowfullscreen
     style="border-radius:16px; margin:20px 0;">
   </iframe>
@@ -310,14 +302,14 @@
   }
 </script>
 
-<!-- 🎵 YOUTUBE BACKGROUND MUSIC LOGIC -->
+<!-- 🎵 YOUTUBE MUSIC CONTROL -->
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   let player;
   let musicStarted = false;
 
   function onYouTubeIframeAPIReady() {
-    player = new YT.Player('bgMusic');
+    player = new YT.Player('musicPlayer');
   }
 
   function startMusicOnce() {
