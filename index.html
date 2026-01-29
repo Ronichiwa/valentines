@@ -40,8 +40,7 @@
       transform: scale(1);
     }
 
-    #memories,
-    #p4 {
+    #memories, #p4 {
       justify-content: flex-start;
       padding-top: 40px;
     }
@@ -173,10 +172,31 @@
       font-size: 12px;
       color: #aaa;
     }
+
+    /* 🔊 MUTE BUTTON */
+    #muteBtn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 999;
+    }
   </style>
 </head>
 
 <body>
+
+<!-- 🔊 MUTE / UNMUTE -->
+<div id="muteBtn">🔇</div>
 
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
@@ -248,7 +268,7 @@
   </div>
 </div>
 
-<!-- PAGE 4 -->
+<!-- PAGE 4 (YOUR ORIGINAL LETTER) -->
 <div class="page" id="p4">
   <h1>💌 Happy Valentine's Day MAMAMIA!!</h1>
 
@@ -302,25 +322,30 @@
   }
 </script>
 
-<!-- 🎵 YOUTUBE MUSIC CONTROL -->
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   let player;
-  let musicStarted = false;
+  let muted = true;
+  let started = false;
 
   function onYouTubeIframeAPIReady() {
-    player = new YT.Player('musicPlayer');
+    player = new YT.Player('musicPlayer', {
+      events: {
+        onReady: () => player.mute()
+      }
+    });
   }
 
-  function startMusicOnce() {
-    if (!musicStarted && player) {
+  document.getElementById('muteBtn').onclick = () => {
+    if (!started) {
       player.playVideo();
-      musicStarted = true;
+      started = true;
     }
-  }
 
-  document.addEventListener('click', startMusicOnce, { once: true });
-  document.addEventListener('touchstart', startMusicOnce, { once: true });
+    muted ? player.unMute() : player.mute();
+    document.getElementById('muteBtn').textContent = muted ? '🔊' : '🔇';
+    muted = !muted;
+  };
 </script>
 
 </body>
