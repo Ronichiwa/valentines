@@ -40,7 +40,6 @@
       transform: scale(1);
     }
 
-    /* Fix layout for scrolling pages */
     #memories,
     #p4 {
       justify-content: flex-start;
@@ -74,7 +73,6 @@
       50% { transform: translateY(-6px); }
     }
 
-    /* MEMORIES GRID */
     .memories-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -99,7 +97,6 @@
       display: block;
     }
 
-    /* Message under photos */
     .memory-note {
       max-width: 360px;
       font-style: italic;
@@ -141,7 +138,6 @@
       margin-top: 10px;
     }
 
-    /* LETTER SECTION — UNCHANGED */
     .letter-wrapper {
       background: white;
       width: 90%;
@@ -182,6 +178,15 @@
 
 <body>
 
+<!-- 🔇 HIDDEN BACKGROUND MUSIC -->
+<iframe
+  id="bgMusic"
+  src="https://www.youtube-nocookie.com/embed/ok2pqepWTLU?enablejsapi=1"
+  frameborder="0"
+  allow="autoplay; encrypted-media"
+  style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;">
+</iframe>
+
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
   <h1>Happy Valentine's Day! 💗</h1>
@@ -217,15 +222,14 @@
   <h1>🎵 A Song Just For You</h1>
 
   <iframe
-  width="280"
-  height="158"
-  src="https://www.youtube-nocookie.com/embed/GxldQ9eX2wo?start=32"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen
-  style="border-radius:16px; margin:20px 0;">
-</iframe>
-
+    width="280"
+    height="158"
+    src="https://www.youtube-nocookie.com/embed/ok2pqepWTLU"
+    frameborder="0"
+    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    style="border-radius:16px; margin:20px 0;">
+  </iframe>
 
   <p style="max-width:320px; font-style: italic;">
     "This song reminds me of you. Every time I listen to it,
@@ -252,7 +256,7 @@
   </div>
 </div>
 
-<!-- PAGE 4 (LETTER — UNCHANGED) -->
+<!-- PAGE 4 -->
 <div class="page" id="p4">
   <h1>💌 Happy Valentine's Day MAMAMIA!!</h1>
 
@@ -306,9 +310,26 @@
   }
 </script>
 
+<!-- 🎵 YOUTUBE BACKGROUND MUSIC LOGIC -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  let player;
+  let musicStarted = false;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('bgMusic');
+  }
+
+  function startMusicOnce() {
+    if (!musicStarted && player) {
+      player.playVideo();
+      musicStarted = true;
+    }
+  }
+
+  document.addEventListener('click', startMusicOnce, { once: true });
+  document.addEventListener('touchstart', startMusicOnce, { once: true });
+</script>
+
 </body>
 </html>
-
-
-
-
