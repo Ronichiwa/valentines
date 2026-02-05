@@ -347,10 +347,16 @@
   let started = false;
 
   function onYouTubeIframeAPIReady() {
-    player = new YT.Player('musicPlayer', {
-      events: { onReady: () => player.mute() }
-    });
-  }
+  player = new YT.Player('musicPlayer', {
+    playerVars: {
+      start: 32   // ⏱ start at 32 seconds
+    },
+    events: {
+      onReady: () => player.mute()
+    }
+  });
+}
+
 
   function startVideoIfNeeded() {
     if (!started && player) {
@@ -386,5 +392,6 @@
 
 </body>
 </html>
+
 
 
