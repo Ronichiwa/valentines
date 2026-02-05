@@ -40,7 +40,7 @@
       transform: scale(1);
     }
 
-    #memories, #p4 {
+    #memories, #memories2, #p4 {
       justify-content: flex-start;
       padding-top: 40px;
     }
@@ -173,7 +173,6 @@
       color: #aaa;
     }
 
-    /* 🔊 MUTE BUTTON */
     #muteBtn {
       position: fixed;
       top: 18px;
@@ -195,7 +194,6 @@
 
 <body>
 
-<!-- 🔊 MUTE / UNMUTE -->
 <div id="muteBtn">🔇</div>
 
 <!-- PAGE 1 -->
@@ -208,7 +206,7 @@
   <button onclick="go('memories')">Next!! ^w^</button>
 </div>
 
-<!-- MEMORIES PAGE -->
+<!-- MEMORIES PAGE 1 -->
 <div class="page" id="memories">
   <h1>My favorite photos of YOU :3 🥇</h1>
 
@@ -223,6 +221,26 @@
 
   <p class="memory-note">
     "Every photo here is a little reminder of how pretty you are💕."
+  </p>
+
+  <button onclick="go('memories2')">Next →</button>
+</div>
+
+<!-- MEMORIES PAGE 2 -->
+<div class="page" id="memories2">
+  <h1>More moments I adore 💞</h1>
+
+  <div class="memories-grid">
+    <div class="memory" style="--rot:2deg"><img src="mem7.jpg"></div>
+    <div class="memory" style="--rot:-3deg"><img src="mem8.jpg"></div>
+    <div class="memory" style="--rot:1deg"><img src="mem9.jpg"></div>
+    <div class="memory" style="--rot:-2deg"><img src="mem10.jpg"></div>
+    <div class="memory" style="--rot:3deg"><img src="mem11.jpg"></div>
+    <div class="memory" style="--rot:-1deg"><img src="mem12.jpg"></div>
+  </div>
+
+  <p class="memory-note">
+    "I swear… every memory with you just makes me fall harder 🥹💗"
   </p>
 
   <button onclick="go('song')">Next →</button>
@@ -322,7 +340,6 @@
   }
 </script>
 
-<!-- YOUTUBE MUSIC API -->
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   let player;
@@ -331,9 +348,7 @@
 
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('musicPlayer', {
-      events: {
-        onReady: () => player.mute()
-      }
+      events: { onReady: () => player.mute() }
     });
   }
 
@@ -348,26 +363,25 @@
     startVideoIfNeeded();
     if (muted) {
       player.unMute();
-      document.getElementById('muteBtn').textContent = '🔊';
+      muteBtn.textContent = '🔊';
     } else {
       player.mute();
-      document.getElementById('muteBtn').textContent = '🔇';
+      muteBtn.textContent = '🔇';
     }
     muted = !muted;
   }
 
   const muteBtn = document.getElementById('muteBtn');
   muteBtn.addEventListener('click', toggleMute);
-  muteBtn.addEventListener('touchstart', function(e){
+  muteBtn.addEventListener('touchstart', e => {
     e.preventDefault();
     toggleMute();
-  }, {passive: false});
+  }, { passive:false });
 
-  // Start video on first touch anywhere on mobile
-  document.body.addEventListener('touchstart', function initFirstTouch() {
+  document.body.addEventListener('touchstart', function init() {
     startVideoIfNeeded();
-    document.body.removeEventListener('touchstart', initFirstTouch);
-  }, {passive: true});
+    document.body.removeEventListener('touchstart', init);
+  }, { passive:true });
 </script>
 
 </body>
