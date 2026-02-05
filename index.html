@@ -153,6 +153,18 @@
       text-align: left;
     }
 
+    .heart {
+      position: absolute;
+      color: #ffb3c1;
+      animation: float 7s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      from { transform: translateY(110vh); }
+      to { transform: translateY(-10vh); }
+    }
+
     .watermark {
       position: fixed;
       bottom: 20px;
@@ -184,18 +196,20 @@
 
 <div id="muteBtn">🔇</div>
 
-<!-- PAGES (UNCHANGED CONTENT) -->
-
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
   <h1>Happy Valentine's Day! 💗</h1>
-  <div class="circle"><img src="bear-love.png"></div>
+  <div class="circle">
+    <img src="bear-love.png">
+  </div>
   <p>Click the next button!! (つ≧▽≦)つ 💕</p>
   <button onclick="go('memories')">Next!! ^w^</button>
 </div>
 
+<!-- MEMORIES PAGE 1 -->
 <div class="page" id="memories">
   <h1>My favorite photos of YOU :3 🥇</h1>
+
   <div class="memories-grid">
     <div class="memory" style="--rot:-3deg"><img src="mem1.jpg"></div>
     <div class="memory" style="--rot:2deg"><img src="mem2.jpg"></div>
@@ -204,12 +218,18 @@
     <div class="memory" style="--rot:-1deg"><img src="mem5.jpg"></div>
     <div class="memory" style="--rot:2deg"><img src="mem6.jpg"></div>
   </div>
-  <p class="memory-note">"Every photo here is a little reminder of how pretty you are💕."</p>
+
+  <p class="memory-note">
+    "Every photo here is a little reminder of how pretty you are💕."
+  </p>
+
   <button onclick="go('memories2')">Next →</button>
 </div>
 
+<!-- MEMORIES PAGE 2 -->
 <div class="page" id="memories2">
-  <h1>More moments spent with you that I adore. 💞</h1>
+  <h1>More moments I adore 💞</h1>
+
   <div class="memories-grid">
     <div class="memory" style="--rot:2deg"><img src="mem7.jpg"></div>
     <div class="memory" style="--rot:-3deg"><img src="mem8.jpg"></div>
@@ -218,15 +238,19 @@
     <div class="memory" style="--rot:3deg"><img src="mem11.jpg"></div>
     <div class="memory" style="--rot:-1deg"><img src="mem12.jpg"></div>
   </div>
+
   <p class="memory-note">
     "Every memory with you just makes me fall harder 🥹💗"
     Beauty (Mamamia) and the Beast (Ron)
   </p>
+
   <button onclick="go('song')">Next →</button>
 </div>
 
+<!-- SONG PAGE -->
 <div class="page" id="song">
   <h1>🎵 A Song Just For You</h1>
+
   <iframe
     id="musicPlayer"
     width="280"
@@ -237,18 +261,22 @@
     allowfullscreen
     style="border-radius:16px; margin:20px 0;">
   </iframe>
+
   <p style="max-width:320px; font-style: italic;">
     "This song always reminds me of you. Every time I hear it, I realize how much I want to be closer to you. And just like in the Kdrama (Lovely Runner), I won't give up until we're both happy together, taking things one step at a time."
   </p>
+
   <button onclick="go('p2')">Next →</button>
 </div>
 
+<!-- PAGE 2 -->
 <div class="page" id="p2">
   <img class="card-img" src="https://static.wixstatic.com/media/6963ba_14cdee3d8cca456197a91f6e34ab3d69~mv2.jpg">
   <h2>I wrote a letter for you...</h2>
   <button onclick="go('p3')">Next →</button>
 </div>
 
+<!-- PAGE 3 -->
 <div class="page" id="p3">
   <h2>Do you want to open it? (≧◡≦)</h2>
   <img class="card-img" src="https://media.tenor.com/_WZy7E7hoTcAAAAM/cat-smile.gif">
@@ -258,9 +286,13 @@
   </div>
 </div>
 
+<!-- PAGE 4 (LETTER) -->
 <div class="page" id="p4">
   <h1>💌 Happy Valentine's Day MAMAMIA!!</h1>
-  <div class="letter-wrapper"><p>Hello! In case you're wondering why I sent you this website, it's because
+
+  <div class="letter-wrapper">
+    <p>
+      Hello! In case you're wondering why I sent you this website, it's because
       I can't write a letter — my handwriting is super ugly 😂
       <br><br>
       Kidding aside (not really), Happy Valentine’s, <strong>MAMAMIA!</strong>
@@ -276,10 +308,14 @@
       Eto pa lang ang kaya ko for now. It's not much, pero sana ma-appreciate mo
       tong low-effort digital letter website na ginawa ko as a token of appreciation.
       <br><br>
-      And again, <strong>Happy Valentine's Day!</strong> 💗</p></div>
+      And again, <strong>Happy Valentine's Day!</strong> 💗
+    </p>
+  </div>
+
   <button onclick="go('p1')">Done 💕</button>
 </div>
 
+<!-- RETRY PAGE -->
 <div class="page" id="retry">
   <h2>Awh... Let's try again, Please..? ＞︿＜</h2>
   <button onclick="go('p3')">Again..?</button>
@@ -287,44 +323,66 @@
 
 <div class="watermark">Made with 💖 ni Ronji</div>
 
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
-  let player, started = false, playerReady = false;
-
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('musicPlayer', {
-      events: {
-        onReady: () => {
-          playerReady = true;
-          player.mute();
-        }
-      }
-    });
-  }
-
   function go(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+  }
 
-    if (id === 'song' && playerReady && !started) {
-      player.seekTo(38, true);
+  for (let i = 0; i < 22; i++) {
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.innerHTML = '❤';
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.animationDuration = 5 + Math.random() * 5 + 's';
+    h.style.fontSize = 14 + Math.random() * 14 + 'px';
+    document.body.appendChild(h);
+  }
+</script>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  let player;
+  let muted = true;
+  let started = false;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('musicPlayer', {
+      events: { onReady: () => player.mute() }
+    });
+  }
+
+  function startVideoIfNeeded() {
+    if (!started && player) {
       player.playVideo();
       started = true;
     }
   }
 
-  const muteBtn = document.getElementById('muteBtn');
-  muteBtn.onclick = () => {
-    if (!started && playerReady) {
-      player.seekTo(38, true);
-      player.playVideo();
-      started = true;
+  function toggleMute() {
+    startVideoIfNeeded();
+    if (muted) {
+      player.unMute();
+      muteBtn.textContent = '🔊';
+    } else {
+      player.mute();
+      muteBtn.textContent = '🔇';
     }
-    player.isMuted() ? player.unMute() : player.mute();
-    muteBtn.textContent = player.isMuted() ? '🔇' : '🔊';
-  };
+    muted = !muted;
+  }
+
+  const muteBtn = document.getElementById('muteBtn');
+  muteBtn.addEventListener('click', toggleMute);
+  muteBtn.addEventListener('touchstart', e => {
+    e.preventDefault();
+    toggleMute();
+  }, { passive:false });
+
+  document.body.addEventListener('touchstart', function init() {
+    startVideoIfNeeded();
+    document.body.removeEventListener('touchstart', init);
+  }, { passive:true });
 </script>
 
 </body>
 </html>
-
