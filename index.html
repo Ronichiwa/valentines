@@ -247,7 +247,7 @@
   <button onclick="go('song')">Next →</button>
 </div>
 
-<!-- SONG PAGE -->
+<!-- SONG PAGE (WITH LETTER TEXT) -->
 <div class="page" id="song">
   <h1>🎵 A Song Just For You</h1>
 
@@ -286,7 +286,7 @@
   </div>
 </div>
 
-<!-- PAGE 4 (LETTER) -->
+<!-- PAGE 4 (LETTER – UNCHANGED) -->
 <div class="page" id="p4">
   <h1>💌 Happy Valentine's Day MAMAMIA!!</h1>
 
@@ -323,23 +323,6 @@
 
 <div class="watermark">Made with 💖 ni Ronji</div>
 
-<script>
-  function go(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-
-  for (let i = 0; i < 22; i++) {
-    const h = document.createElement('div');
-    h.className = 'heart';
-    h.innerHTML = '❤';
-    h.style.left = Math.random() * 100 + 'vw';
-    h.style.animationDuration = 5 + Math.random() * 5 + 's';
-    h.style.fontSize = 14 + Math.random() * 14 + 'px';
-    document.body.appendChild(h);
-  }
-</script>
-
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   let player;
@@ -354,16 +337,25 @@
     });
   }
 
-  function startVideoIfNeeded() {
-    if (!started && player) {
-      player.seekTo(32, true); // ✅ FORCE 32s
+  function go(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+
+    // autoplay when clicking Next → Song page
+    if (id === 'song' && player && !started) {
+      player.seekTo(33, true);
       player.playVideo();
       started = true;
     }
   }
 
   function toggleMute() {
-    startVideoIfNeeded();
+    if (!started && player) {
+      player.seekTo(33, true);
+      player.playVideo();
+      started = true;
+    }
+
     if (muted) {
       player.unMute();
       muteBtn.textContent = '🔊';
@@ -380,11 +372,6 @@
     e.preventDefault();
     toggleMute();
   }, { passive:false });
-
-  document.body.addEventListener('touchstart', function init() {
-    startVideoIfNeeded();
-    document.body.removeEventListener('touchstart', init);
-  }, { passive:true });
 </script>
 
 </body>
