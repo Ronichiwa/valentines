@@ -609,11 +609,60 @@
     document.getElementById(id).classList.add('active');
   }
   
-  // Special function to go to proposal page
+  // Function to reset the YES state (call this when going back to first page)
+  function resetYesState() {
+    // Clear the localStorage item
+    localStorage.removeItem('valentineSaidYes');
+    
+    // Reset the global variable
+    hasSaidYes = false;
+    
+    // Reset click count
+    noClickCount = 0;
+    
+    // Reset the proposal page UI
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const counter = document.getElementById('counter');
+    const alreadyMessage = document.getElementById('alreadyMessage');
+    const buttonMessage = document.getElementById('buttonMessage');
+    const yesWrapper = document.getElementById('yesWrapper');
+    const yesGlow = document.getElementById('yesGlow');
+    
+    // Reset YES button
+    yesBtn.textContent = "YES! 💖";
+    yesBtn.classList.remove('already-yes');
+    yesBtn.style.transform = 'scale(1)';
+    
+    // Reset NO button
+    noBtn.style.display = 'block';
+    noBtn.style.transform = 'scale(1)';
+    noBtn.textContent = 'No 😢';
+    
+    // Reset counter
+    counter.textContent = 'Clicked "No": 0 times';
+    counter.style.display = 'block';
+    
+    // Hide already message
+    alreadyMessage.style.display = 'none';
+    
+    // Reset button message
+    buttonMessage.textContent = "(Every time you click 'No', the 'YES!' gets bigger! 😉)";
+    
+    // Reset wrapper scale
+    yesWrapper.style.transform = 'scale(1)';
+    
+    // Hide glow
+    yesGlow.style.opacity = '0';
+  }
+  
+  // Special function to go to proposal page - NOW WITH RESET
   function goToProposal() {
+    // Reset the YES state completely
+    resetYesState();
+    
+    // Then navigate to proposal page
     go('proposal');
-    // Update the proposal page based on whether YES was already said
-    updateProposalPage();
   }
   
   // Function to update proposal page based on state
@@ -920,4 +969,3 @@
 
 </body>
 </html>
-
