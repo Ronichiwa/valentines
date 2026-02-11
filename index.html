@@ -45,9 +45,9 @@
       padding-top: 40px;
     }
 
-    /* Proposal Page Styles - Matching your original colors */
+    /* Proposal Page Styles */
     #proposal {
-      background: #fff1f3; /* Same as your body background */
+      background: #fff1f3;
     }
     
     .proposal-content {
@@ -58,6 +58,7 @@
       border-radius: 24px;
       box-shadow: 0 15px 40px rgba(0,0,0,0.12);
       animation: gentlePulse 3s infinite;
+      position: relative;
     }
     
     @keyframes gentlePulse {
@@ -84,7 +85,6 @@
     
     .yes-wrapper {
       position: relative;
-      transition: all 0.3s ease;
     }
     
     #yesBtn {
@@ -122,21 +122,6 @@
       box-shadow: 0 12px 25px rgba(255,122,156,0.5);
     }
     
-    /* Glowing effect for when Yes gets bigger */
-    .yes-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(255,77,109,0.3) 0%, rgba(255,77,109,0) 70%);
-      border-radius: 999px;
-      z-index: 0;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
     #noBtn {
       background: #e6e6e6;
       color: #444;
@@ -162,6 +147,30 @@
       color: #666;
       font-size: 0.9rem;
       opacity: 0.8;
+    }
+
+    /* Small Reset Button */
+    .reset-btn {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(200, 200, 200, 0.3);
+      color: #888;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      box-shadow: none;
+      margin: 0;
+    }
+    
+    .reset-btn:hover {
+      background: rgba(255, 77, 109, 0.2);
+      color: #ff4d6d;
+      transform: translateY(-1px);
     }
 
     /* Celebration Page */
@@ -383,15 +392,6 @@
       }
     }
     
-    /* Counter display */
-    .counter {
-      margin-top: 15px;
-      font-size: 1rem;
-      color: #ff4d6d;
-      font-weight: bold;
-      opacity: 0.8;
-    }
-    
     /* Already said yes message */
     .already-message {
       margin-top: 15px;
@@ -428,6 +428,13 @@
       .proposal-content {
         padding: 30px 20px;
       }
+      
+      .reset-btn {
+        bottom: 10px;
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 0.6rem;
+      }
     }
   </style>
 </head>
@@ -439,17 +446,18 @@
 <!-- PROPOSAL PAGE -->
 <div class="page active" id="proposal">
   <div class="proposal-content">
+    <!-- Small Reset Button -->
+    <button class="reset-btn" onclick="resetYesState()">↻ Reset</button>
+    
     <h1>Will you be my Valentine? 💝</h1>
     
     <div class="buttons-container">
       <div class="yes-wrapper" id="yesWrapper">
-        <div class="yes-glow" id="yesGlow"></div>
         <button id="yesBtn">YES! 💖</button>
       </div>
       
       <button id="noBtn">No 😢</button>
       
-      <div class="counter" id="counter">Clicked "No": 0 times</div>
       <div class="already-message" id="alreadyMessage">You already said YES! Click again to continue 💕</div>
     </div>
     
@@ -601,7 +609,6 @@
 <script>
   // Track global state using localStorage so it persists
   let hasSaidYes = localStorage.getItem('valentineSaidYes') === 'true';
-  let noClickCount = 0;
   
   // Function to navigate between pages
   function go(id) {
@@ -617,46 +624,33 @@
     // Reset the global variable
     hasSaidYes = false;
     
-    // Reset click count
-    noClickCount = 0;
-    
     // Reset the proposal page UI
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
-    const counter = document.getElementById('counter');
     const alreadyMessage = document.getElementById('alreadyMessage');
     const buttonMessage = document.getElementById('buttonMessage');
-    const yesWrapper = document.getElementById('yesWrapper');
-    const yesGlow = document.getElementById('yesGlow');
     
     // Reset YES button
     yesBtn.textContent = "YES! 💖";
     yesBtn.classList.remove('already-yes');
-    yesBtn.style.transform = 'scale(1)';
     
     // Reset NO button
     noBtn.style.display = 'block';
-    noBtn.style.transform = 'scale(1)';
     noBtn.textContent = 'No 😢';
-    
-    // Reset counter
-    counter.textContent = 'Clicked "No": 0 times';
-    counter.style.display = 'block';
     
     // Hide already message
     alreadyMessage.style.display = 'none';
     
     // Reset button message
-    buttonMessage.textContent = "(Every time you click 'No', the 'YES!' gets bigger! 😉)";
+    buttonMessage.textContent = "(Papayag o Papayag?)";
     
-    // Reset wrapper scale
-    yesWrapper.style.transform = 'scale(1)';
-    
-    // Hide glow
-    yesGlow.style.opacity = '0';
+    // If we're not on the proposal page, go there
+    if (!document.getElementById('proposal').classList.contains('active')) {
+      go('proposal');
+    }
   }
   
-  // Special function to go to proposal page - NOW WITH RESET
+  // Special function to go to proposal page - WITH RESET
   function goToProposal() {
     // Reset the YES state completely
     resetYesState();
@@ -669,31 +663,23 @@
   function updateProposalPage() {
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
-    const counter = document.getElementById('counter');
     const alreadyMessage = document.getElementById('alreadyMessage');
     const buttonMessage = document.getElementById('buttonMessage');
-    const yesWrapper = document.getElementById('yesWrapper');
     
     if (hasSaidYes) {
       // Already said YES - show different state
       yesBtn.textContent = "Already YES! 💕";
       yesBtn.classList.add('already-yes');
       noBtn.style.display = 'none';
-      counter.style.display = 'none';
       alreadyMessage.style.display = 'block';
       buttonMessage.textContent = "Thank you For Saying Yes! 💕";
-      
-      // Reset button to normal size
-      yesBtn.style.transform = 'scale(1)';
-      yesWrapper.style.transform = 'scale(1)';
     } else {
       // Not said YES yet - show normal state
       yesBtn.textContent = "YES! 💖";
       yesBtn.classList.remove('already-yes');
       noBtn.style.display = 'block';
-      counter.style.display = 'block';
       alreadyMessage.style.display = 'none';
-      buttonMessage.textContent = "(Every time you click 'No', the 'YES!' gets bigger! 😉)";
+      buttonMessage.textContent = "(Papayag o Papayag?)";
     }
   }
 
@@ -723,102 +709,29 @@
   // Get elements
   const yesBtn = document.getElementById('yesBtn');
   const noBtn = document.getElementById('noBtn');
-  const yesGlow = document.getElementById('yesGlow');
-  const counter = document.getElementById('counter');
-  const yesWrapper = document.getElementById('yesWrapper');
   
   // Initialize the page based on state
   updateProposalPage();
   
-  // Make "Yes" bigger when "No" is clicked (only if YES hasn't been said yet)
-  noBtn.addEventListener('click', makeYesBigger);
-  noBtn.addEventListener('mouseover', makeYesBigger);
-  
-  function makeYesBigger(event) {
-    // If YES was already said, do nothing
-    if (hasSaidYes) {
-      event.preventDefault();
-      return;
-    }
+  // Handle NO click - simple, just changes text temporarily
+  noBtn.addEventListener('click', function(event) {
+    event.preventDefault();
     
-    // Prevent default click behavior if it's a click
-    if (event.type === 'click') {
-      event.preventDefault();
-    }
-    
-    // Increase click count
-    noClickCount++;
-    
-    // Update counter display
-    counter.textContent = `Clicked "No": ${noClickCount} time${noClickCount !== 1 ? 's' : ''}`;
-    
-    // Calculate new scale - gets bigger with each click
-    const newScale = 1 + (noClickCount * 0.1); // 10% bigger each time
-    
-    // Apply scaling to Yes button
-    yesBtn.style.transform = `scale(${newScale})`;
-    yesWrapper.style.transform = `scale(${newScale})`;
-    
-    // Show glowing effect
-    yesGlow.style.opacity = '1';
-    setTimeout(() => {
-      yesGlow.style.opacity = '0';
-    }, 500);
-    
-    // Change "No" button text sometimes for fun
+    // Just show a cute message when No is clicked
     const funnyTexts = [
       "No 😢", "Are you sure?", "Think again!", "Really?", 
       "Please?", "Try again!", "Hmm...", "Nope!", "Maybe later",
-      "I'm shy!", "Not today!", "You sure?", "The YES is getting big!"
+      "I'm shy!", "Not today!", "You sure?"
     ];
     
-    if (noClickCount % 2 === 0 || Math.random() > 0.7) {
-      const randomText = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
-      noBtn.textContent = randomText;
-    }
+    const randomText = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
+    noBtn.textContent = randomText;
     
-    // Play a sound
-    playClickSound();
-    
-    // If clicked many times, make "No" button smaller for fun
-    if (noClickCount >= 5) {
-      const noScale = Math.max(0.7, 1 - (noClickCount - 5) * 0.05);
-      noBtn.style.transform = `scale(${noScale})`;
-    }
-    
-    // If clicked too many times, automatically click Yes
-    if (noClickCount >= 10) {
-      setTimeout(() => {
-        alert("Okay, you've clicked 'No' too many times! I'll help you click 'YES!' 😊");
-        handleYesClick();
-      }, 500);
-    }
-  }
-  
-  // Function to play a sound
-  function playClickSound() {
-    try {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      
-      // Higher pitch as Yes gets bigger
-      const pitch = 300 + (noClickCount * 20);
-      oscillator.frequency.value = pitch;
-      oscillator.type = 'sine';
-      
-      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-      
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.2);
-    } catch (e) {
-      // Audio context not supported, just continue silently
-    }
-  }
+    // Reset the text after a short delay
+    setTimeout(() => {
+      noBtn.textContent = 'No 😢';
+    }, 800);
+  });
   
   // Handle YES click
   function handleYesClick() {
@@ -834,6 +747,9 @@
       // Play celebration sound
       playCelebrationSound();
       
+      // Update the proposal page state
+      updateProposalPage();
+      
       // Show celebration page after a delay
       setTimeout(() => {
         go('celebration');
@@ -844,10 +760,10 @@
     }
   }
   
-  // When she clicks YES (whether first time or subsequent times)
+  // When she clicks YES
   yesBtn.addEventListener('click', handleYesClick);
   
-  // Function to create celebration fireworks (only for first YES)
+  // Function to create celebration fireworks
   function createFireworks() {
     const container = document.getElementById('fireworksContainer');
     container.style.display = 'block';
@@ -858,24 +774,18 @@
         const firework = document.createElement('div');
         firework.className = 'firework';
         
-        // Random position
         firework.style.left = Math.random() * 100 + 'vw';
         firework.style.top = Math.random() * 100 + 'vh';
-        
-        // Random color
         firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
         
-        // Random size
         const size = 5 + Math.random() * 20;
         firework.style.width = `${size}px`;
         firework.style.height = `${size}px`;
         
-        // Random animation duration
         firework.style.animationDuration = 0.5 + Math.random() + 's';
         
         container.appendChild(firework);
         
-        // Remove firework after animation completes
         setTimeout(() => {
           if (firework.parentNode) {
             firework.parentNode.removeChild(firework);
@@ -884,19 +794,16 @@
       }, i * 30);
     }
     
-    // Hide fireworks container after all animations
     setTimeout(() => {
       container.style.display = 'none';
     }, 3000);
   }
   
-  // Function to play celebration sound (only for first YES)
+  // Function to play celebration sound
   function playCelebrationSound() {
     try {
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      
-      // Play a cheerful melody
-      const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // C5, E5, G5, C6, E6
+      const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
       
       notes.forEach((freq, index) => {
         setTimeout(() => {
