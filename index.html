@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Valentine's Day 💗</title>
+  <title>Will You Be My Valentine? 💘</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -45,7 +45,138 @@
       padding-top: 40px;
     }
 
-    h1 { color: #ff4d6d; }
+    /* Proposal Page Styles - Matching your original colors */
+    #proposal {
+      background: #fff1f3; /* Same as your body background */
+    }
+    
+    .proposal-content {
+      max-width: 600px;
+      width: 90%;
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      animation: gentlePulse 3s infinite;
+    }
+    
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.01); }
+    }
+    
+    h1 { 
+      color: #ff4d6d; 
+      font-size: 2.8rem;
+      margin-bottom: 50px;
+      text-shadow: none;
+    }
+    
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      position: relative;
+    }
+    
+    .yes-wrapper {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+      padding: 25px 70px;
+      border-radius: 999px;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 15px 35px rgba(255,77,109,0.5);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      z-index: 1;
+    }
+    
+    #yesBtn:hover {
+      transform: scale(1.05);
+      background: #ff3357;
+      box-shadow: 0 20px 40px rgba(255,77,109,0.7);
+    }
+    
+    /* Already said YES state */
+    #yesBtn.already-yes {
+      background: #ff8fab;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255,143,171,0.4);
+      padding: 20px 60px;
+    }
+    
+    #yesBtn.already-yes:hover {
+      background: #ff7a9c;
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(255,122,156,0.5);
+    }
+    
+    /* Glowing effect for when Yes gets bigger */
+    .yes-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,77,109,0.3) 0%, rgba(255,77,109,0) 70%);
+      border-radius: 999px;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    #noBtn {
+      background: #e6e6e6;
+      color: #444;
+      padding: 20px 60px;
+      border-radius: 999px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+    
+    #noBtn:hover {
+      background: #d4d4d4;
+      transform: translateY(-2px);
+    }
+    
+    .button-message {
+      margin-top: 30px;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Celebration Page */
+    #celebration {
+      background: #fff1f3;
+    }
+    
+    .celebration-content {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      max-width: 500px;
+    }
+
     h2 { color: #222; }
     p { color: #444; }
 
@@ -123,12 +254,18 @@
       cursor: pointer;
       margin-top: 18px;
       box-shadow: 0 6px 18px rgba(255,77,109,0.4);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255,77,109,0.5);
     }
 
     button.secondary {
       background: #e6e6e6;
       color: #444;
-      box-shadow: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .btn-row {
@@ -164,6 +301,32 @@
       from { transform: translateY(110vh); }
       to { transform: translateY(-10vh); }
     }
+    
+    .heart-floating {
+      position: absolute;
+      color: #ff4d6d;
+      font-size: 24px;
+      opacity: 0;
+      animation: floatUp 6s linear infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.7;
+      }
+      90% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
 
     .watermark {
       position: fixed;
@@ -189,6 +352,83 @@
       cursor: pointer;
       z-index: 999;
     }
+    
+    .celebration-fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+      display: none;
+    }
+    
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: explode 1.5s ease-out forwards;
+    }
+    
+    @keyframes explode {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) scale(0);
+        opacity: 0;
+      }
+    }
+    
+    /* Counter display */
+    .counter {
+      margin-top: 15px;
+      font-size: 1rem;
+      color: #ff4d6d;
+      font-weight: bold;
+      opacity: 0.8;
+    }
+    
+    /* Already said yes message */
+    .already-message {
+      margin-top: 15px;
+      color: #ff4d6d;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 10px 20px;
+      background: #ffd6de;
+      border-radius: 10px;
+      display: none;
+    }
+    
+    /* For mobile responsiveness */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      #yesBtn {
+        padding: 22px 50px;
+        font-size: 1.7rem;
+      }
+      
+      #yesBtn.already-yes {
+        padding: 18px 40px;
+        font-size: 1.5rem;
+      }
+      
+      #noBtn {
+        padding: 18px 40px;
+        font-size: 1.5rem;
+      }
+      
+      .proposal-content {
+        padding: 30px 20px;
+      }
+    }
   </style>
 </head>
 
@@ -196,8 +436,40 @@
 
 <div id="muteBtn">🔇</div>
 
+<!-- PROPOSAL PAGE -->
+<div class="page active" id="proposal">
+  <div class="proposal-content">
+    <h1>Will you be my Valentine? 💝</h1>
+    
+    <div class="buttons-container">
+      <div class="yes-wrapper" id="yesWrapper">
+        <div class="yes-glow" id="yesGlow"></div>
+        <button id="yesBtn">YES! 💖</button>
+      </div>
+      
+      <button id="noBtn">No 😢</button>
+      
+      <div class="counter" id="counter">Clicked "No": 0 times</div>
+      <div class="already-message" id="alreadyMessage">You already said YES! Click again to continue 💕</div>
+    </div>
+    
+    <p class="button-message" id="buttonMessage">(Every time you click "No", the "YES!" gets bigger! 😉)</p>
+  </div>
+</div>
+
+<!-- CELEBRATION PAGE -->
+<div class="page" id="celebration">
+  <div class="celebration-content">
+    <h1>YAY! You Said YES! 🎉💖🎊</h1>
+    <p>You've just made this the happiest Valentine's Day ever!<br>
+    I can't wait to spend this special day with you, my Valentine!<br>
+    Now, let me show you something I made just for you...</p>
+    <button onclick="go('p1')">Continue to your surprise! →</button>
+  </div>
+</div>
+
 <!-- PAGE 1 -->
-<div class="page active" id="p1">
+<div class="page" id="p1">
   <h1>Happy Valentine's Day! 💗</h1>
   <div class="circle">
     <img src="bear-love.png">
@@ -295,7 +567,7 @@
       Hello! In case you're wondering why I sent you this website, it's because
       I can't write a letter — my handwriting is super ugly 😂
       <br><br>
-      Kidding aside (not really), Happy Valentine’s, <strong>MAMAMIA!</strong>
+      Kidding aside (not really), Happy Valentine's, <strong>MAMAMIA!</strong>
       Stay pretty and gorgeous always, and I mean it.
       Thank you for always being there for me and cheering me up whenever
       I needed someone to talk to, especially when I'm feeling down.
@@ -312,7 +584,7 @@
     </p>
   </div>
 
-  <button onclick="go('p1')">Done 💕</button>
+  <button onclick="goToProposal()">Back to the beginning 💕</button>
 </div>
 
 <!-- RETRY PAGE -->
@@ -321,14 +593,62 @@
   <button onclick="go('p3')">Again..?</button>
 </div>
 
+<!-- Fireworks Container -->
+<div class="celebration-fireworks" id="fireworksContainer"></div>
+
 <div class="watermark">Made with 💖 ni Ronji</div>
 
 <script>
+  // Track global state using localStorage so it persists
+  let hasSaidYes = localStorage.getItem('valentineSaidYes') === 'true';
+  let noClickCount = 0;
+  
+  // Function to navigate between pages
   function go(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
   }
+  
+  // Special function to go to proposal page
+  function goToProposal() {
+    go('proposal');
+    // Update the proposal page based on whether YES was already said
+    updateProposalPage();
+  }
+  
+  // Function to update proposal page based on state
+  function updateProposalPage() {
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const counter = document.getElementById('counter');
+    const alreadyMessage = document.getElementById('alreadyMessage');
+    const buttonMessage = document.getElementById('buttonMessage');
+    const yesWrapper = document.getElementById('yesWrapper');
+    
+    if (hasSaidYes) {
+      // Already said YES - show different state
+      yesBtn.textContent = "Already YES! 💕";
+      yesBtn.classList.add('already-yes');
+      noBtn.style.display = 'none';
+      counter.style.display = 'none';
+      alreadyMessage.style.display = 'block';
+      buttonMessage.textContent = "Thank you For Saying Yes! 💕";
+      
+      // Reset button to normal size
+      yesBtn.style.transform = 'scale(1)';
+      yesWrapper.style.transform = 'scale(1)';
+    } else {
+      // Not said YES yet - show normal state
+      yesBtn.textContent = "YES! 💖";
+      yesBtn.classList.remove('already-yes');
+      noBtn.style.display = 'block';
+      counter.style.display = 'block';
+      alreadyMessage.style.display = 'none';
+      buttonMessage.textContent = "(Every time you click 'No', the 'YES!' gets bigger! 😉)";
+    }
+  }
 
+  // Create floating hearts in the background
   for (let i = 0; i < 22; i++) {
     const h = document.createElement('div');
     h.className = 'heart';
@@ -338,8 +658,222 @@
     h.style.fontSize = 14 + Math.random() * 14 + 'px';
     document.body.appendChild(h);
   }
+  
+  // Create special floating hearts for proposal page
+  for (let i = 0; i < 15; i++) {
+    const h = document.createElement('div');
+    h.className = 'heart-floating';
+    h.innerHTML = '💖';
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.animationDuration = 4 + Math.random() * 4 + 's';
+    h.style.animationDelay = Math.random() * 5 + 's';
+    h.style.fontSize = 20 + Math.random() * 20 + 'px';
+    document.getElementById('proposal').appendChild(h);
+  }
+
+  // Get elements
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const yesGlow = document.getElementById('yesGlow');
+  const counter = document.getElementById('counter');
+  const yesWrapper = document.getElementById('yesWrapper');
+  
+  // Initialize the page based on state
+  updateProposalPage();
+  
+  // Make "Yes" bigger when "No" is clicked (only if YES hasn't been said yet)
+  noBtn.addEventListener('click', makeYesBigger);
+  noBtn.addEventListener('mouseover', makeYesBigger);
+  
+  function makeYesBigger(event) {
+    // If YES was already said, do nothing
+    if (hasSaidYes) {
+      event.preventDefault();
+      return;
+    }
+    
+    // Prevent default click behavior if it's a click
+    if (event.type === 'click') {
+      event.preventDefault();
+    }
+    
+    // Increase click count
+    noClickCount++;
+    
+    // Update counter display
+    counter.textContent = `Clicked "No": ${noClickCount} time${noClickCount !== 1 ? 's' : ''}`;
+    
+    // Calculate new scale - gets bigger with each click
+    const newScale = 1 + (noClickCount * 0.1); // 10% bigger each time
+    
+    // Apply scaling to Yes button
+    yesBtn.style.transform = `scale(${newScale})`;
+    yesWrapper.style.transform = `scale(${newScale})`;
+    
+    // Show glowing effect
+    yesGlow.style.opacity = '1';
+    setTimeout(() => {
+      yesGlow.style.opacity = '0';
+    }, 500);
+    
+    // Change "No" button text sometimes for fun
+    const funnyTexts = [
+      "No 😢", "Are you sure?", "Think again!", "Really?", 
+      "Please?", "Try again!", "Hmm...", "Nope!", "Maybe later",
+      "I'm shy!", "Not today!", "You sure?", "The YES is getting big!"
+    ];
+    
+    if (noClickCount % 2 === 0 || Math.random() > 0.7) {
+      const randomText = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
+      noBtn.textContent = randomText;
+    }
+    
+    // Play a sound
+    playClickSound();
+    
+    // If clicked many times, make "No" button smaller for fun
+    if (noClickCount >= 5) {
+      const noScale = Math.max(0.7, 1 - (noClickCount - 5) * 0.05);
+      noBtn.style.transform = `scale(${noScale})`;
+    }
+    
+    // If clicked too many times, automatically click Yes
+    if (noClickCount >= 10) {
+      setTimeout(() => {
+        alert("Okay, you've clicked 'No' too many times! I'll help you click 'YES!' 😊");
+        handleYesClick();
+      }, 500);
+    }
+  }
+  
+  // Function to play a sound
+  function playClickSound() {
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      // Higher pitch as Yes gets bigger
+      const pitch = 300 + (noClickCount * 20);
+      oscillator.frequency.value = pitch;
+      oscillator.type = 'sine';
+      
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.2);
+    } catch (e) {
+      // Audio context not supported, just continue silently
+    }
+  }
+  
+  // Handle YES click
+  function handleYesClick() {
+    // If this is the FIRST time saying YES
+    if (!hasSaidYes) {
+      // Mark as said YES
+      hasSaidYes = true;
+      localStorage.setItem('valentineSaidYes', 'true');
+      
+      // Create celebration fireworks
+      createFireworks();
+      
+      // Play celebration sound
+      playCelebrationSound();
+      
+      // Show celebration page after a delay
+      setTimeout(() => {
+        go('celebration');
+      }, 2000);
+    } else {
+      // Already said YES before - just proceed to page 1
+      go('p1');
+    }
+  }
+  
+  // When she clicks YES (whether first time or subsequent times)
+  yesBtn.addEventListener('click', handleYesClick);
+  
+  // Function to create celebration fireworks (only for first YES)
+  function createFireworks() {
+    const container = document.getElementById('fireworksContainer');
+    container.style.display = 'block';
+    const colors = ['#ff4d6d', '#ffafcc', '#ffc8dd', '#ff8fab', '#fb6f92', '#ffd6de'];
+    
+    for (let i = 0; i < 80; i++) {
+      setTimeout(() => {
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        
+        // Random position
+        firework.style.left = Math.random() * 100 + 'vw';
+        firework.style.top = Math.random() * 100 + 'vh';
+        
+        // Random color
+        firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Random size
+        const size = 5 + Math.random() * 20;
+        firework.style.width = `${size}px`;
+        firework.style.height = `${size}px`;
+        
+        // Random animation duration
+        firework.style.animationDuration = 0.5 + Math.random() + 's';
+        
+        container.appendChild(firework);
+        
+        // Remove firework after animation completes
+        setTimeout(() => {
+          if (firework.parentNode) {
+            firework.parentNode.removeChild(firework);
+          }
+        }, 2000);
+      }, i * 30);
+    }
+    
+    // Hide fireworks container after all animations
+    setTimeout(() => {
+      container.style.display = 'none';
+    }, 3000);
+  }
+  
+  // Function to play celebration sound (only for first YES)
+  function playCelebrationSound() {
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // Play a cheerful melody
+      const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // C5, E5, G5, C6, E6
+      
+      notes.forEach((freq, index) => {
+        setTimeout(() => {
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          
+          oscillator.frequency.value = freq;
+          oscillator.type = 'sine';
+          
+          gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+          
+          oscillator.start(audioContext.currentTime);
+          oscillator.stop(audioContext.currentTime + 0.3);
+        }, index * 150);
+      });
+    } catch (e) {
+      // Audio context not supported
+    }
+  }
 </script>
 
+<!-- YouTube Player API -->
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   let player;
@@ -386,4 +920,3 @@
 
 </body>
 </html>
-
